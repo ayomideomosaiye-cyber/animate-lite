@@ -1,36 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Animate-lite Ultra by Emmanuel</title>
-  <link rel="stylesheet" href="dist/index.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Lightweight CSS animation library by Emmanuel Omosaiye — fadeIn, bounce, slideLeft, zoomIn. Install via npm.">
+  <title>Animate-lite Ultra by Emmanuel</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+  <link rel="stylesheet" href="dist/index.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-    :root{
-      --bg:#0f0f0f;--card:#1a1a1a;--text:#fff;--accent:#00f5d4;--glow:0 0 20px #00f5d4;
-    }
-    [data-theme="light"]{
-      --bg:#ffffff;--card:#ffffff;--text:#111;--accent:#ff47da;--glow:0 0 20px #ff47da;
-    }
+    :root{--bg:#0f0f0f;--card:#1a1a1a;--text:#fff;--accent:#00f5d4;--muted:#aaa;--glow:0 0 20px #00f5d4;}
+    [data-theme="light"]{--bg:#ffffff;--card:#ffffff;--text:#111;--accent:#ff47da;--muted:#555;--glow:0 0 20px #ff47da;}
     *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif}
     body{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg);color:var(--text);transition:background .3s}
     header{position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;backdrop-filter:blur(10px);background:rgba(0,0,0,.2)}
     h1{font-size:2rem;font-weight:700;letter-spacing:1px}
-    .theme-toggle{background:none;border:none;color:var(--accent);font-size:1.5rem;cursor:pointer;transition:transform .3s}
+    .theme-toggle{background:none;border:none;color:var(--accent);font-size:1.5rem;cursor:pointer;transition:transform .3s;aria-label:Toggle theme}
     .theme-toggle:hover{transform:rotate(15deg)}
-    main{padding:6rem 2rem 2rem;width:100%;max-width:1000px;display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+    main{padding:6rem 2rem 2rem;width:100%;max-width:1200px;display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
     .card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:2rem;backdrop-filter:blur(10px);display:flex;flex-direction:column;align-items:center;gap:1rem;transition:transform .3s,box-shadow .3s}
     .card:hover{transform:translateY(-5px);box-shadow:var(--glow)}
     .emoji{font-size:2.5rem}
     h2{margin-bottom:.5rem}
-    .demo-box{width:100px;height:100px;background:var(--accent);border-radius:12px;transition:transform .3s}
+    .demo-box{width:100px;height:100px;background:var(--accent);border-radius:12px;cursor:pointer;transition:transform .3s}
+    .demo-box:focus{outline:2px solid var(--accent);outline-offset:4px}
     .controls{display:flex;gap:1rem;margin-top:1rem}
     .btn{padding:10px 16px;border:none;border-radius:8px;background:var(--accent);color:#000;font-weight:600;cursor:pointer;transition:transform .3s}
     .btn:hover{transform:translateY(-2px)}
     .code-snippet{background:#222;color:#fff;padding:1rem;border-radius:8px;font-family:monospace;font-size:.9rem;margin-top:1rem;position:relative}
     .copy-btn{position:absolute;top:8px;right:8px;background:none;border:none;color:var(--accent);cursor:pointer;font-size:.8rem}
-    footer{margin-top:auto;padding:2rem;text-align:center;color:var(--text-muted)}
+    footer{margin-top:auto;padding:2rem;text-align:center;color:var(--muted)}
     @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
     @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
     @keyframes slideLeft{from{transform:translateX(-100%)}to{transform:translateX(0)}}
@@ -39,16 +38,16 @@
 </head>
 <body>
   <header>
-    <h1>Animate-lite Ultra by Emmanuel</h1>
-    <button class="theme-toggle" id="themeBtn">🌗</button>
+    <h1 id="typer">Animate-lite Ultra by Emmanuel</h1>
+    <button class="theme-toggle" id="themeBtn" aria-label="Toggle dark or light mode">🌗</button>
   </header>
 
   <main>
     <!-- Card 1 fadeIn -->
     <section class="card">
-      <span class="emoji">✨</span>
+      <span class="emoji" aria-hidden="true">✨</span>
       <h2>Fade In</h2>
-      <div class="demo-box fadeIn" id="fadeBox"></div>
+      <div class="demo-box fadeIn" id="fadeBox" tabindex="0" role="button" aria-label="Click to replay fadeIn animation" onclick="replay('fadeBox','fadeIn')"></div>
       <div class="controls">
         <button class="btn" onclick="replay('fadeBox','fadeIn')">Replay</button>
       </div>
@@ -60,9 +59,9 @@
 
     <!-- Card 2 bounce -->
     <section class="card">
-      <span class="emoji">🏀</span>
+      <span class="emoji" aria-hidden="true">🏀</span>
       <h2>Bounce</h2>
-      <div class="demo-box bounce" id="bounceBox"></div>
+      <div class="demo-box bounce" id="bounceBox" tabindex="0" role="button" aria-label="Click to replay bounce animation" onclick="replay('bounceBox','bounce')"></div>
       <div class="controls">
         <button class="btn" onclick="replay('bounceBox','bounce')">Replay</button>
       </div>
@@ -74,9 +73,9 @@
 
     <!-- Card 3 slideLeft -->
     <section class="card">
-      <span class="emoji">⬅️</span>
+      <span class="emoji" aria-hidden="true">⬅️</span>
       <h2>Slide Left</h2>
-      <div class="demo-box slideLeft" id="slideBox"></div>
+      <div class="demo-box slideLeft" id="slideBox" tabindex="0" role="button" aria-label="Click to replay slideLeft animation" onclick="replay('slideBox','slideLeft')"></div>
       <div class="controls">
         <button class="btn" onclick="replay('slideBox','slideLeft')">Replay</button>
       </div>
@@ -88,9 +87,9 @@
 
     <!-- Card 4 zoomIn -->
     <section class="card">
-      <span class="emoji">🔍</span>
+      <span class="emoji" aria-hidden="true">🔍</span>
       <h2>Zoom In</h2>
-      <div class="demo-box zoomIn" id="zoomBox"></div>
+      <div class="demo-box zoomIn" id="zoomBox" tabindex="0" role="button" aria-label="Click to replay zoomIn animation" onclick="replay('zoomBox','zoomIn')"></div>
       <div class="controls">
         <button class="btn" onclick="replay('zoomBox','zoomIn')">Replay</button>
       </div>
@@ -102,32 +101,53 @@
   </main>
 
   <footer>
-    <p>Install: <code>npm install animate-lite-emzy</code></p>
-    <p>Built with ❤️ by Emmanuel Omosaiye</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <button class="btn" onclick="copyInstall()">📋 Copy Install</button>
+      <button class="btn" onclick="copyCredit()">📋 Copy Credit</button>
+    </div>
+    <p style="margin-top:1rem;color:var(--muted)">Built with ❤️ by Emmanuel Omosaiye</p>
   </footer>
 
   <script>
-    // Dark / Light toggle
+    // Dark / Light toggle + persist + system pref
     const themeBtn = document.getElementById('themeBtn');
+    const saved = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.dataset.theme = saved;
     themeBtn.addEventListener('click', () => {
-      document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = next;
+      localStorage.setItem('theme', next);
     });
 
-    // Replay animation (faster reset)
+    // Type-writer title
+    const phrases = ['Animate-lite Ultra by Emmanuel','Lightweight CSS Animations','Built with ❤️ by Emzy'];
+    let i = 0, j = 0, cur = '', del = false;
+    const type = () => {
+      const full = phrases[j];
+      cur = del ? full.substring(0, i--) : full.substring(0, i++);
+      typer.textContent = cur;
+      let t = del ? 80 : 120;
+      if (!del && cur === full) { t = 2000; if (j < phrases.length - 1) del = true; }
+      else if (del && cur === '') { del = false; j++; if (j === phrases.length) j = 0; }
+      setTimeout(type, t);
+    }; window.addEventListener('load', type);
+
+    // Replay animation (proper remove/add)
     function replay(id, cls) {
       const el = document.getElementById(id);
-      el.style.animation = 'none';
-      el.offsetHeight; /* force reflow */
-      el.style.animation = null;
+      el.classList.remove(cls);
+      void el.offsetWidth; // force reflow
       el.classList.add(cls);
     }
 
-    // Copy code
-    function copyCode(btn) {
-      const code = btn.parentElement.textContent.replace('Copy', '').trim();
-      navigator.clipboard.writeText(code);
-      btn.textContent = 'Copied!';
-      setTimeout(() => btn.textContent = 'Copy', 1500);
+    // Copy buttons
+    function copyInstall() {
+      navigator.clipboard.writeText('npm install animate-lite-emzy');
+      alert('Install command copied!');
+    }
+    function copyCredit() {
+      navigator.clipboard.writeText('Built with ❤️ by Emmanuel Omosaiye');
+      alert('Credit copied!');
     }
   </script>
 </body>
