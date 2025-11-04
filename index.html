@@ -1,23 +1,134 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <title>Animate-lite Demo</title>
+  <title>Animate-lite Ultra by Emmanuel</title>
   <link rel="stylesheet" href="dist/index.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body{margin:0;font-family:Inter,system-ui;background:#0f0f0f;color:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;gap:2rem}
-    h1{color:#00f5d4;margin-bottom:1rem}
-    .box{width:120px;height:120px;background:#00f5d4;border-radius:12px}
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    :root{
+      --bg:#0f0f0f;--card:#1a1a1a;--text:#fff;--accent:#00f5d4;--glow:0 0 20px #00f5d4;
+    }
+    [data-theme="light"]{
+      --bg:#ffffff;--card:#ffffff;--text:#111;--accent:#ff47da;--glow:0 0 20px #ff47da;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif}
+    body{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg);color:var(--text);transition:background .3s}
+    header{position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;backdrop-filter:blur(10px);background:rgba(0,0,0,.2)}
+    h1{font-size:2rem;font-weight:700;letter-spacing:1px}
+    .theme-toggle{background:none;border:none;color:var(--accent);font-size:1.5rem;cursor:pointer;transition:transform .3s}
+    .theme-toggle:hover{transform:rotate(15deg)}
+    main{padding:6rem 2rem 2rem;width:100%;max-width:1000px;display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+    .card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:2rem;backdrop-filter:blur(10px);display:flex;flex-direction:column;align-items:center;gap:1rem;transition:transform .3s,box-shadow .3s}
+    .card:hover{transform:translateY(-5px);box-shadow:var(--glow)}
+    .emoji{font-size:2.5rem}
+    h2{margin-bottom:.5rem}
+    .demo-box{width:100px;height:100px;background:var(--accent);border-radius:12px;transition:transform .3s}
+    .controls{display:flex;gap:1rem;margin-top:1rem}
+    .btn{padding:10px 16px;border:none;border-radius:8px;background:var(--accent);color:#000;font-weight:600;cursor:pointer;transition:transform .3s}
+    .btn:hover{transform:translateY(-2px)}
+    .code-snippet{background:#222;color:#fff;padding:1rem;border-radius:8px;font-family:monospace;font-size:.9rem;margin-top:1rem;position:relative}
+    .copy-btn{position:absolute;top:8px;right:8px;background:none;border:none;color:var(--accent);cursor:pointer;font-size:.8rem}
+    footer{margin-top:auto;padding:2rem;text-align:center;color:var(--text-muted)}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+    @keyframes slideLeft{from{transform:translateX(-100%)}to{transform:translateX(0)}}
+    @keyframes zoomIn{from{transform:scale(0.3);opacity:0}to{transform:scale(1);opacity:1}}
   </style>
 </head>
 <body>
-  <h1>Animate-lite Demo</h1>
+  <header>
+    <h1>Animate-lite Ultra by Emmanuel</h1>
+    <button class="theme-toggle" id="themeBtn">🌗</button>
+  </header>
 
-  <div class="box fadeIn"></div>
-  <div class="box bounce"></div>
-  <div class="box slideLeft"></div>
-  <div class="box zoomIn"></div>
+  <main>
+    <!-- Card 1 fadeIn -->
+    <section class="card">
+      <span class="emoji">✨</span>
+      <h2>Fade In</h2>
+      <div class="demo-box fadeIn" id="fadeBox"></div>
+      <div class="controls">
+        <button class="btn" onclick="replay('fadeBox','fadeIn')">Replay</button>
+      </div>
+      <div class="code-snippet">
+        &lt;div class="fadeIn"&gt;Content&lt;/div&gt;
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+    </section>
 
-  <p style="margin-top:2rem;color:#aaa">Install: <code>npm install animate-lite-emzy</code></p>
+    <!-- Card 2 bounce -->
+    <section class="card">
+      <span class="emoji">🏀</span>
+      <h2>Bounce</h2>
+      <div class="demo-box bounce" id="bounceBox"></div>
+      <div class="controls">
+        <button class="btn" onclick="replay('bounceBox','bounce')">Replay</button>
+      </div>
+      <div class="code-snippet">
+        &lt;div class="bounce"&gt;Content&lt;/div&gt;
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+    </section>
+
+    <!-- Card 3 slideLeft -->
+    <section class="card">
+      <span class="emoji">⬅️</span>
+      <h2>Slide Left</h2>
+      <div class="demo-box slideLeft" id="slideBox"></div>
+      <div class="controls">
+        <button class="btn" onclick="replay('slideBox','slideLeft')">Replay</button>
+      </div>
+      <div class="code-snippet">
+        &lt;div class="slideLeft"&gt;Content&lt;/div&gt;
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+    </section>
+
+    <!-- Card 4 zoomIn -->
+    <section class="card">
+      <span class="emoji">🔍</span>
+      <h2>Zoom In</h2>
+      <div class="demo-box zoomIn" id="zoomBox"></div>
+      <div class="controls">
+        <button class="btn" onclick="replay('zoomBox','zoomIn')">Replay</button>
+      </div>
+      <div class="code-snippet">
+        &lt;div class="zoomIn"&gt;Content&lt;/div&gt;
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Install: <code>npm install animate-lite-emzy</code></p>
+    <p>Built with ❤️ by Emmanuel Omosaiye</p>
+  </footer>
+
+  <script>
+    // Dark / Light toggle
+    const themeBtn = document.getElementById('themeBtn');
+    themeBtn.addEventListener('click', () => {
+      document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    });
+
+    // Replay animation (faster reset)
+    function replay(id, cls) {
+      const el = document.getElementById(id);
+      el.style.animation = 'none';
+      el.offsetHeight; /* force reflow */
+      el.style.animation = null;
+      el.classList.add(cls);
+    }
+
+    // Copy code
+    function copyCode(btn) {
+      const code = btn.parentElement.textContent.replace('Copy', '').trim();
+      navigator.clipboard.writeText(code);
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 1500);
+    }
+  </script>
 </body>
 </html>
